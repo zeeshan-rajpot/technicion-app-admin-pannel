@@ -1,16 +1,15 @@
 import React from 'react'
 import Navbar from './Navbar'
 
-const About = () => {
+const Countact = () => {
   return (
     <>
     <Navbar/>
     <div>
-
-      Abouts
+      Countact
     </div>
     </>
   )
 }
 
-export default About
+export default Countact
