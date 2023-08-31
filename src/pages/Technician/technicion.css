@@ -1,0 +1,26 @@
+.Block-btn {
+	/* background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%); */
+	background-color:#ff7783;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	padding:5px 34px;
+	text-decoration:none;
+    border: 0;
+}
+.unBlock-btn{
+    /* background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%); */
+	background-color:#fff;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ff7783;
+	font-family:Arial;
+	font-size:12px;
+	padding:5px 34px;
+	text-decoration:none;
+    border: 0;  
+}

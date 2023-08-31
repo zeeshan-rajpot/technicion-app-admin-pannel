@@ -1,81 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import proflepic from "../../src/images/Screenshot from 2023-08-28 16-17-14.png";
+import calender from "../../src/images/Group 11787.svg";
 import './navbar.css'
-import {  NavLink } from 'react-router-dom'
-
 const Navbar = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, []);
+  const formattedDate = currentDate.toLocaleDateString();
+
   return (
     <>
-  <div className="site-mobile-menu">
-    <div className="site-mobile-menu-header">
-      <div className="site-mobile-menu-close mt-3">
-        <span className="icon-close2 js-menu-toggle" />
-      </div>
-    </div>
-    <div className="site-mobile-menu-body" />
-  </div>
-  <header className="site-navbar" role="banner">
-    <div className="container">
-      <div className="row align-items-center">
-        <div className="col-11 col-xl-2">
-          <h1 className="mb-0 site-logo">
-            <NavLink to="/" className="text-Black mb-0">
-              Brand
-            </NavLink>
-          </h1>
+      <div
+        className="d-flex align-items-center justify-content-between border"
+        style={{ height: "70px" }}
+      >
+        <div className="ps-md-4">
+          <b className="mobilefont">Owner Dashboard</b>
         </div>
-        <div className="col-12 col-md-10 d-none d-xl-block">
-          <nav
-            className="site-navigation position-relative text-right"
-            role="navigation"
-          >
-            <ul className="site-menu js-clone-nav mr-auto d-none d-lg-block">
-              <li className="active">
-                <NavLink to="/">
-                  <span>Home</span>
-                </NavLink>
-              </li>
-              
-              <li>
-                <NavLink to="/">
-                  <span>Listings</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about">
-                  <span>About</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/blog">
-                  <span>Blog</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/countact">
-                  <span>Contact</span>
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
+        <div className="d-flex align-item-center ">
+          <img src={calender} className="m-0" />{" "}
+          <p className="ms-2 m-0">{formattedDate}</p>
         </div>
-        <div
-          className="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
-          style={{ position: "relative", top: 3 }}
-        >
-          {/* <NavLink to="/Blog" className="site-menu-toggle js-menu-toggle text-white">
-            <span className="icon-menu h3" />
-          </NavLink> */}
+        <div className="d-flex align-items-center">
+          <img src={proflepic} width="40px" className="me-2 rounded-circle mobileimg" />
+          <p className="m-0 pe-md-4 mobilefont" style={{ color: "#ff7783" }}>
+            {" "}
+            David William{" "}
+          </p>
         </div>
       </div>
-    </div>
-  </header>
-  {/* <div
-    className="hero"
-    style={{ backgroundImage: 'url("images/hero_1.jpg")' }}
-  /> */}
-</>
+    </>
+  );
+};
 
-  )
-}
-
-export default Navbar
+export default Navbar;

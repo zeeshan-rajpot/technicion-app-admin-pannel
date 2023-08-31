@@ -1,0 +1,66 @@
+.login-container{
+    height: 100vh;
+    /* background-image: url('../../images/Mask\ Group\ 5.svg'); */
+}
+.bg-login{
+  /* height: 100vh; */
+  background-image: url('../../images/Mask\ Group\ 5.svg');
+  background-repeat: no-repeat;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 9px;
+    /* border: 1px solid #ccc; */
+    border-radius: 9px;
+    width: 80%;
+    text-align: center;
+    margin-left: 10% !important;
+  }
+  
+  .icon {
+    margin-right: 12px;
+    padding-right: 10px;
+    color: #666;
+  }
+  
+  input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    margin-left: 8px !important;
+
+  }
+
+  .Signin-btn {
+	background-color:#ff7782;
+	border-radius:38px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:16px;
+    border: none;
+	padding:10px 59px;
+	text-decoration:none;
+}
+
+
+/* Media query for laptops (width between 992px and 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .loginimg-laptop{
+        width: 300px;
+    }
+    
+    
+    #login-container .d-flex {
+      /* Apply specific styles for content alignment on laptops here */
+    }
+  }
+
+  @media (min-width: 1200px) and (max-width: 1399px) {
+    .bg-login {
+      background-image: url('../../images/Mask\ Group\ 5.svg');
+      background-size: 800px auto;
+    }
+  }

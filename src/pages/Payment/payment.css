@@ -1,0 +1,8 @@
+
+.active-tabbtn {
+    border-bottom: 1px solid #ffbb56 !important; /* Set the color you want for the active tab's border */
+  }
+
+  .active-histry{
+    border-bottom: 1px solid #ff7783 !important;
+  }

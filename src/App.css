@@ -27,6 +27,27 @@
 .App-link {
   color: #61dafb;
 }
+a:link {
+  text-decoration: none;
+}
+
+td , th{
+  font-size: 12px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+	.mobilenone{
+    display: none !important;
+  }
+  .destopnone{
+    display: block !important;
+  }
+}
+.destopnone{
+  display: none;
+}
 
 @keyframes App-logo-spin {
   from {

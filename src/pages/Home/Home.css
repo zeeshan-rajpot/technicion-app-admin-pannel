@@ -1,0 +1,14 @@
+.active-button {
+    background-color: #ff7783 !important; /* Active button background color */
+    color: white; /* Active button text color */
+  }
+  
+  .inactive-button {
+    background-color: #f0f0f0; /* Inactive button background color */
+    color: black; /* Inactive button text color */
+  }
+  
+  /* Apply this class to the SVG to change its color */
+  .svg-icon {
+    fill: currentColor;
+  }

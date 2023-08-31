@@ -1,21 +1,31 @@
 // import logo from './logo.svg';
 import './App.css';
-import './bootstrap.min.css';
-import './icon.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { BrowserRouter, Routes ,Route } from "react-router-dom";
-import Home from './Com/Home';
-import About from './Com/About';
-import Countact from './Com/Countact';
-import Blog from './Com/Blog';
+// import Home from './Com/Home';
+import Notification from './pages/Notification';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Account from './pages/Account';
+import Home from './pages/Home';
+import Navbar from './Com/Navbar';
+import Block from './pages/Block/Block';
 
 function App() {
   return (
+    
     <BrowserRouter>
+    <Navbar/>
     <Routes>
-      <Route path='/' element={ <Home/>} />
-      <Route path='/About' element={ <About/>} />
-      <Route path='/Countact' element={ <Countact/>} />
-      <Route path='/Blog' element={ <Blog/>} />
+      <Route path='/' element={ <Login/>} />
+      <Route path='/Account' element={ <Account/>} />
+      <Route path='/SignUp' element={ <SignUp/>} />
+      <Route path='/Home' element={ <Home/>} />
+      <Route path='/notification' element={ <Notification/>} />
+      <Route path='/Block' element={ <Block/>} />
+
+      
     </Routes>
     </BrowserRouter>
   );

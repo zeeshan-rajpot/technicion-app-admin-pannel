@@ -1,0 +1,19 @@
+
+  
+  .active-tabbbb {
+    color: #ff7783 !important;/* Add a left border to the active tab */
+  }
+  .active-icons {
+    filter: brightness(0) saturate(100%) invert(81%) sepia(55%) saturate(6177%) hue-rotate(314deg) brightness(109%) contrast(101%);  
+}
+  
+@media only screen and (max-width: 600px) {
+	.mobileflex{
+    flex-direction: column !important;
+  }
+  .mobilesidebartext{
+    font-size: 12px;
+    padding-top: 3px;
+    padding-left:2px ;
+  }
+}
