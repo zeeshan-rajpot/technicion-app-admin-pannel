@@ -1,98 +1,87 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import proflepic from "../../images/Screenshot from 2023-08-30 11-33-40.png";
 
-
 const CousterBlock = () => {
-    const customerData = [
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 1, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        { id: 4, name: "Akbar Sarkar", address: "Otddd3345to" },
-    
-        // ... Add more customer data here
-      ];
-    
-      return (
-        <div className='mt-4' style={{maxHeight:'82vh' , overflowY:'auto'}}>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col"><b> Sr.</b></th>
-                <th scope="col"><b> Name</b></th>
-                <th scope="col"><b>Home Adress</b></th>
-                <th scope="col"><b> Status</b></th>
-              </tr>
-            </thead>
-            <tbody>
-              {customerData.map((customer, index) => (
-                <tr key={customer.id}>
-                  <th scope="row">{index + 1}</th>
-                  <td className="d-flex" style={{height:'74px'}}>
-                    <img src={proflepic} className="rounded-4 me-2" alt="" width="30px" height='30px' />
-                    <p className="m-0">{customer.name}</p>
-                  </td>
-                  <td className="text-secondary">{customer.address}</td>
-                  <td>
-                    <button href="#" className="Block-btn "  >Block</button>
-                    <button href="#" className="shadow unBlock-btn " style={{marginTop:'8px'}} >Un Block</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
+  const [customerData, setCustomerData] = useState([]);
+
+  const handleUnblock = (id) => {
+    const confirmed = window.confirm("Do you want to unblock this user?");
+    if (confirmed) {
+      axios
+        .post(`http://localhost:8000/changeAccessUser/${id}`)
+        .then((response) => {
+          alert("User unblocked successfully!");
+          // Update the state to remove the unblocked user
+          setCustomerData(prevData => prevData.filter(user => user._id !== id));
+        })
+        .catch((error) => {
+          console.error("Error unblocking user:", error);
+        });
     }
-    
-export default CousterBlock
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/getAllBlockedUsers")
+      .then((response) => {
+        const blockedUsers = response.data;
+        setCustomerData(blockedUsers.User);
+      })
+      .catch((error) => {
+        console.error("Error fetching blocked users:", error);
+      });
+  }, []);
+
+  return (
+    <div className="mt-4" style={{ maxHeight: "82vh", overflowY: "auto" }}>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">
+              <b> Sr.</b>
+            </th>
+            <th scope="col">
+              <b> Name</b>
+            </th>
+            <th scope="col">
+              <b>Home Address</b>
+            </th>
+            <th scope="col">
+              <b> Status</b>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {customerData.map((customer, index) => (
+            <tr key={customer.id}>
+              <th scope="row">{index + 1}</th>
+              <td className="d-flex imagetablehight">
+                <img
+                  src={proflepic}
+                  className="rounded-4 me-2"
+                  alt=""
+                  width="30px"
+                  height="30px"
+                />
+                <p className="m-0 text-nowrap">{customer.firstname}</p>
+              </td>
+              <td className="text-secondary text-nowrap">{customer.city}</td>
+              <td>
+                <button
+                  type="button"
+                  className="shadow unBlock-btn"
+                  onClick={() => handleUnblock(customer._id)}
+                >
+                  Un Block
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default CousterBlock;

@@ -24,3 +24,17 @@
 	text-decoration:none;
     border: 0;  
 }
+
+button:disabled {
+	cursor: not-allowed !important;
+	/* pointer-events: none; This prevents click events on disabled buttons */
+  }
+  .Accepted-access{
+	cursor: none;
+
+	/* background-color: #e29ca2 !important; */
+  }
+
+  .denied-access{
+	background-color: #e29ca2 !important;
+  }

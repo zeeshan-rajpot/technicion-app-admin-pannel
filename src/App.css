@@ -1,3 +1,19 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Glory:wght@400;600;800&display=swap');
+*{
+
+  font-family: 'Glory', sans-serif;
+}
+
+body{
+  font-family: 'Glory', sans-serif;
+} */
+
+
+
+body{
+  background-color: white !important;
+} 
+
 .App {
   text-align: center;
 }
@@ -34,7 +50,10 @@ a:link {
 td , th{
   font-size: 12px;
 }
-
+.imagetablehight{
+  /* padding-bottom: 10px; */
+  height: auto;
+}
 
 
 @media only screen and (max-width: 600px) {
@@ -44,16 +63,20 @@ td , th{
   .destopnone{
     display: block !important;
   }
+ .Block-btn , .unBlock-btn{
+  font-size: 9px !important;
+  padding: 2px 11px !important;
+ }
 }
 .destopnone{
   display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media screen and (min-width: 1000px) and (max-width: 1400px) {
+
+ .editbtnaccount{
+ position: absolute !important;
+  bottom: 10% !important;
+  
+ }
 }

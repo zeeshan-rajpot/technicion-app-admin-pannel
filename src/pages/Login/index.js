@@ -1,12 +1,43 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import "./login.css";
+import { baseurl } from "../const";
 import { Col, Container, Row } from "react-bootstrap";
 import loginimg from "../../images/Group 11810.svg";
 import profile from "../../images/Profile.svg";
 import lock from "../../images/Iconly-Bold-Lock.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    const loginData = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post(`${baseurl}/adminlogin`, loginData)
+      .then((response) => {
+        // Assuming your API sends back a token upon successful login
+        const loginid = response.data;
+        alert(response.data.message);
+        // Store the token in local storage for future API requests
+        localStorage.setItem('loginid', JSON.stringify(loginid));
+
+
+        // Redirect to Home page
+        navigate("/Home");
+      })
+      .catch((error) => {
+        console.error("Error logging in:", error);
+        alert("Invalid email or password");
+      });
+  };
+
   return (
     <>
       <div className="bg-login">
@@ -20,7 +51,7 @@ const Login = () => {
                 <h1 className="text-light">Welcome to Your</h1>
                 <h2 className="text-light">
                   {" "}
-                  <span  style={{ color: "#ff7783" }}>
+                  <span style={{ color: "#ff7783" }}>
                     <u
                       style={{
                         textDecorationColor: "white",
@@ -52,12 +83,22 @@ const Login = () => {
                 <div className="input-container shadow">
                   {/* <FaUser className='icon' /> */}
                   <img src={profile} />
-                  <input type="text" placeholder="Email" />
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div className="input-container shadow mt-4">
                   {/* <FaUser className='icon' /> */}
                   <img src={lock} />
-                  <input type="password" placeholder="Password" />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <div
                   className="text-end mt-2"
@@ -65,12 +106,10 @@ const Login = () => {
                 >
                   <p className="text-secondary">Forget Password</p>
                 </div>
-                <button className="Signin-btn">
+                <button className="Signin-btn" onClick={handleLogin}>
                   {" "}
-                  <Link to="/Home" style={{ color: "white" }}>
-                    {" "}
-                    Sign In{" "}
-                  </Link>
+                  {/* <Link  style={{ color: "white" }}> */} Sign In{" "}
+                  {/* </Link> */}
                 </button>
                 <p className="text-secondary mt-3">
                   Don't have an account?{" "}

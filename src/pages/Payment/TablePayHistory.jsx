@@ -69,8 +69,8 @@ const TablePayHistory = () => {
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td className='d-flex '>
-                  <img src={proflepic} className='rounded-4 me-2' alt="" width='30px' />
-                  <p className='m-0 pt-2'>{data.name}</p>
+                  <img src={proflepic} className='rounded-4 ' alt="" width='30px' height="30px" />
+                  <p className='m-0 pt-1'>{data.name}</p>
                 </td>
                 <td className='text-secondary'>{data.orderID}</td>
                 <td><b>{data.totalPayment}</b></td>

@@ -2,7 +2,15 @@
     background-color: #ff7783 !important; /* Active button background color */
     color: white; /* Active button text color */
   }
-  
+  .active-text{
+    color: white;
+  }
+  .active-tab , .active-background{
+    background-color: #ff7783 !important;
+  }
+  .active-img{
+    filter: brightness(0) saturate(100%) invert(93%) sepia(96%) saturate(0%) hue-rotate(92deg) brightness(105%) contrast(105%);
+  }
   .inactive-button {
     background-color: #f0f0f0; /* Inactive button background color */
     color: black; /* Inactive button text color */
@@ -11,4 +19,21 @@
   /* Apply this class to the SVG to change its color */
   .svg-icon {
     fill: currentColor;
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    .imgsizehome {
+      /* right: '10%' !important; */
+      width: 30px !important;
+      padding-left: 0px;
+    }
+  }
+  
+
+  
+  @media only screen and (min-width: 601px) and (max-width: 1400px) {
+    .imgsizehome {
+      width: 40px !important;
+    }
   }

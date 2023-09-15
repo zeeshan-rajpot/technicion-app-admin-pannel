@@ -1,8 +1,13 @@
 import React from "react";
+import { useState } from 'react';
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function MyVerticallyCenteredModal(props) {
+
+
+
   return (
     <Modal
       {...props}
@@ -38,7 +43,7 @@ function MyVerticallyCenteredModal(props) {
           Are you sure you want to logout
         </h4>
         <div className="text-center pb-4">
-          <button href="#" className="Block-btn me-3">
+          <button href="#"  className="Block-btn me-3"> 
             Confrim
           </button>
           <button href="#" className="shadow unBlock-btn">

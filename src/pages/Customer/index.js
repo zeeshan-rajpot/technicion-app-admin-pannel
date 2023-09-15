@@ -77,7 +77,7 @@ const Customers = () => {
           {customerData.map((customer, index) => (
             <tr key={customer.id}>
               <th scope="row">{index + 1}</th>
-              <td className="d-flex" style={{height:'74px'}}>
+              <td className="d-flex imagetablehight" >
                 <img src={proflepic} className="rounded-4 me-2" alt="" width="30px" height='30px' />
                 <p className="m-0">{customer.name}</p>
               </td>

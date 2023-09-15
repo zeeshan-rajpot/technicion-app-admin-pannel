@@ -9,14 +9,13 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
 import Home from './pages/Home';
-import Navbar from './Com/Navbar';
+// import Navbar from './Com/Navbar';
 import Block from './pages/Block/Block';
 
 function App() {
   return (
     
     <BrowserRouter>
-    <Navbar/>
     <Routes>
       <Route path='/' element={ <Login/>} />
       <Route path='/Account' element={ <Account/>} />
