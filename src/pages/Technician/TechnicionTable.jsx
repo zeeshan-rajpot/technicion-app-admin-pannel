@@ -6,11 +6,14 @@ import "./technicion.css";
 
 const TechnicionTable = () => {
   const [vendorsData, setVendorsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0); // Add a key to force component re-render
+
   const changeAccess = (id, newStatus) => {
     axios.post(`http://localhost:8000/changeAccessVendor/${id}`, { newStatus })
       .then(response => {
-        // Assuming the API responds with updated data
-        setVendorsData(newStatus);
+        setVendorsData(response.data.vendor);
+        setRefreshKey(prevKey => prevKey + 1); // Increment the key to trigger re-render
       })
       .catch(error => console.error("Error changing access:", error));
   }
@@ -20,9 +23,20 @@ const TechnicionTable = () => {
       .then(response => {
         console.log(response.data.vendor);
         setVendorsData(response.data.vendor);
+        setLoading(false); // Set loading to false once data is fetched
       })
       .catch(error => console.error("Error fetching data:", error));
-  }, []);
+  }, [refreshKey]); // Add refreshKey as a dependency
+
+  const getBlobFromBuffer = (buffer) => {
+    return new Blob([buffer], { type: 'image/png' });
+  }
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
 
   return (
     <div className='mt-4' style={{maxHeight:'82vh', overflowY:'auto'}}>
@@ -36,16 +50,16 @@ const TechnicionTable = () => {
           </tr>
         </thead>
         <tbody>
-          {vendorsData.map((vendor, index) => (
+          {vendorsData && vendorsData.map((vendor, index) => (
             <tr key={index}>
               <th scope="row">{index + 1}</th>
-              <td className="d-flex imagetablehight" >
-                <img src={proflepic} className="rounded-4 me-2" alt="" width="30px" height='30px' />
+              <td className="d-flex imagetablehight" style={{height:'48px'}} >
+              {/* <img src={URL.createObjectURL(getBlobFromBuffer(vendor.image))} className="rounded-4 me-2" alt="" width="30px" height='30px' /> */}
                 <p className="m-0 text-nowrap">{vendor.firstname + " " +vendor.lastname}</p>
               </td>
               <td className="text-secondary text-nowrap">{vendor._id}</td>
               <td className="text-nowrap">
-              <button
+                <button
                   href="#"
                   className={`Block-btn ${vendor.access === 'Denied' ? 'denied-access' : ''}`}
                   disabled={vendor.access === "Denied"}

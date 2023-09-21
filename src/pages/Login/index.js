@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./login.css";
 import { baseurl } from "../const";
+import { ToastContainer, toast } from "react-toastify";
 import { Col, Container, Row } from "react-bootstrap";
 import loginimg from "../../images/Group 11810.svg";
 import profile from "../../images/Profile.svg";
@@ -22,21 +23,50 @@ const Login = () => {
     axios
       .post(`${baseurl}/adminlogin`, loginData)
       .then((response) => {
-        // Assuming your API sends back a token upon successful login
-        const loginid = response.data;
-        alert(response.data.message);
-        // Store the token in local storage for future API requests
-        localStorage.setItem('loginid', JSON.stringify(loginid));
+        console.log(response.data);
+        const loginid = response.data.id;
+        console.log(loginid)
+        localStorage.setItem('loginid', loginid);
+        // navigate("/Home");
 
+        // Display a success toast
+        toast.success("Login successful!", {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          newestOnTop: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        });
 
-        // Redirect to Home page
-        navigate("/Home");
+        // Delay the navigation to give time for the toast to appear
+        setTimeout(() => {
+          navigate("/Home");
+        }, 1000);
       })
       .catch((error) => {
-        console.error("Error logging in:", error);
-        alert("Invalid email or password");
+        console.error("Error logging in:", error.response.data.error);
+
+        toast.error(error.response.data.error, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          newestOnTop: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        });
+        
       });
   };
+
 
   return (
     <>
@@ -82,7 +112,7 @@ const Login = () => {
 
                 <div className="input-container shadow">
                   {/* <FaUser className='icon' /> */}
-                  <img src={profile} />
+                  <img src='/Message.svg' />
                   <input
                     type="text"
                     placeholder="Email"
@@ -123,6 +153,31 @@ const Login = () => {
           </Row>
         </Container>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 };

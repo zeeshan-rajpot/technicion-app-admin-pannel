@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 // import "./login.css";
+import { ToastContainer, toast } from "react-toastify";
 import { Col, Container, Row } from "react-bootstrap";
 import loginimg from "../../images/Group 11810.svg";
 import profile from "../../images/Profile.svg";
@@ -31,11 +32,38 @@ const SignUp = () => {
 
       .then((response) => {
         // Handle successful sign-up (e.g., show a success message)
-        alert(response.data.message);
+        // alert(response.data.message);
+
+
+
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          newestOnTop: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        });
       })
       .catch((error) => {
-        console.error("Error signing up:", error);
-        alert("Error signing up. Please try again.");
+        console.error("Error signing up:", error.response.data.message);
+        // alert("Error signing up. Please try again.");
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          newestOnTop: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        });
       });
   };
   return (
@@ -80,7 +108,7 @@ const SignUp = () => {
                 </div>
                 <div className="input-container shadow mt-4">
                   {/* <FaUser className='icon' /> */}
-                  <img src={email} />
+                  <img src="/Message.svg" />
                   <input
                     type="text"
                     placeholder="Email"
@@ -124,6 +152,21 @@ const SignUp = () => {
           </Row>
         </Container>
       </div>
+
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
     </>
   );
 };

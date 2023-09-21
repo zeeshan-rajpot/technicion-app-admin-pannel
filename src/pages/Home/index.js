@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../../Com/Sidebar";
 import './Home.css'
+import axios from "axios";
 import Payment from "../Payment";
 import Navbar from "../../Com/Navbar"
 import pay from "../../images/pay-money-icon.svg";
@@ -16,6 +17,30 @@ import tool from '../../images/tools-icon.svg'
 const Home = () => {
   const [currentComponent, setCurrentComponent] = useState(null);
   const [activeTab, setActiveTab] = useState();
+  const [loginid, setLogInid] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+
+  useEffect(() => {
+    const id = localStorage.getItem("loginid");
+    console.log(id)
+  
+      
+      // console.log(idAsInt)
+      setLogInid(id);
+ 
+  }, []);
+  useEffect(() => {
+    if (loginid) {
+      axios
+        .get(`http://localhost:8000/AdminGetInfo/${loginid}`)
+        .then((response) => {
+          // Set the user data in the state
+          setUserData(response.data.Admin);
+        })
+        .catch((error) => console.error("Error fetching user info:", error));
+    }
+  }, [loginid]);
 
   const tabData = [
     { label: "Payment", icon: pay, component: <Payment /> },
@@ -40,7 +65,7 @@ const Home = () => {
           </Col>
           <Col sm={8} lg={5} className="border">
             <h1 className="mt-5">
-              <b> Hello , David William</b>
+              <b> Hello , {userData.name}</b>
             </h1>
             <p className="text-secondary">
               Welcome to the control Center , where insight meet action

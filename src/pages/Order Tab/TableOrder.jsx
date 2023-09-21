@@ -9,7 +9,7 @@ const TableOrder = () => {
     axios
       .get("http://localhost:8000/getAllOrders")
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.allOrders[0].image.data);
 
         // Assuming your API response is an array of orders
         setOrdersData(response.data.allOrders);
@@ -22,12 +22,9 @@ const TableOrder = () => {
 
 
 
-
-  const getBase64Image = (buffer) => {
-    const base64String = Buffer.from(buffer).toString("base64");
-    return `data:image/png;base64,${base64String}`;
-  };
-
+  const getBlobFromBuffer = (buffer) => {
+    return new Blob([buffer], { type: 'image/png' });
+  }
 
   return (
     <>
@@ -60,12 +57,8 @@ const TableOrder = () => {
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td className="d-flex ">
-                    <img
-                      src={proflepic}
-                      className="rounded-4 me-2"
-                      alt=""
-                      width="20px"
-                    />
+                  <img src={URL.createObjectURL(getBlobFromBuffer(order.image.data))} className="rounded-4 me-2" alt="" />
+
                     <p className="m-0 text-nowrap">{order.username}</p>
                   </td>
                   <td className="text-secondary text-nowrap">{order._id}</td>
