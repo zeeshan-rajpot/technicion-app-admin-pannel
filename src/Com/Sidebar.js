@@ -67,7 +67,7 @@ const Sidebar = (props) => {
               </p>
             </Link>{" "}
           </div>
-          <div
+          {/* <div
             className={`d-flex align-items-start justify-content-start mt-2 ${
               activeTab === "notification" ? "active-tabbbb" : ""
             }`}
@@ -91,7 +91,7 @@ const Sidebar = (props) => {
                 <b>Notification</b>
               </p>
             </Link>
-          </div>
+          </div> */}
 
           <div
             className={`d-flex align-items-start justify-content-start mt-2 ${

@@ -56,7 +56,7 @@ const Account = () => {
                 }}
               >
                 <Row className="p-5">
-                  <Col
+                  {/* <Col
                     lg={4}
                     className="d-flex align-item-center justify-content-center"
                     style={{ position: "relative" }}
@@ -82,10 +82,10 @@ const Account = () => {
                     >
                       <img src={written} alt="edit svg" className="Modalbtn" />
                     </div>
-                  </Col>
+                  </Col> */}
 
-                  <Col lg={8} className="mt-4">
-                    <Row className="d-flex justify-content-center align-item-center">
+                  <Col lg={12} className="mt-4 w-75 m-auto">
+                    <Row className="d-flex justify-content-center align-item-center ">
                       <img src={profile} className="inputLogo" />
                       <input placeholder="DavidWilliam" className="input" 
                         value={userData ? userData.name : ""}

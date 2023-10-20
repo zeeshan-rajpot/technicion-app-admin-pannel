@@ -1,14 +1,52 @@
 import React from "react";
 import { useState } from 'react';
-
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
 
 function MyVerticallyCenteredModal(props) {
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate(); 
 
+  const id = localStorage.getItem("loginid");
 
+  const handleConfirmLogout = () => {
+    const id = localStorage.getItem("loginid");
+
+    // Make a DELETE request to log out the user
+    axios
+      .get(`http://localhost:8000/AdminLogout/${id}`)
+ 
+      .then((response) => {
+      
+        console.log(response.data.message);
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          newestOnTop: false,
+          closeOnClick: true,
+          rtl: false,
+          pauseOnFocusLoss: true,
+          draggable: true,
+          pauseOnHover: true,
+          theme: "light",
+        });
+
+        // Delay the navigation to give time for the toast to appear
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  };
 
   return (
+    <>
     <Modal
       {...props}
       size="md"
@@ -43,7 +81,7 @@ function MyVerticallyCenteredModal(props) {
           Are you sure you want to logout
         </h4>
         <div className="text-center pb-4">
-          <button href="#"  className="Block-btn me-3"> 
+          <button href="#"  className="Block-btn me-3"   onClick={handleConfirmLogout}> 
             Confrim
           </button>
           <button href="#" className="shadow unBlock-btn">
@@ -52,6 +90,20 @@ function MyVerticallyCenteredModal(props) {
         </div>
       </Modal.Body>
     </Modal>
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+    />
+
+    </>
   );
 }
 

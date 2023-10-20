@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { baseurl } from "../const";
 import proflepic from "../../images/Screenshot from 2023-08-30 11-33-40.png";
 
 const TableOrder = () => {
@@ -7,7 +8,7 @@ const TableOrder = () => {
   useEffect(() => {
     // Make a GET request when the component mounts
     axios
-      .get("http://localhost:8000/getAllOrders")
+      .get(`${baseurl}/getAllOrders`)
       .then((response) => {
         console.log(response.data.allOrders[0].image.data);
 

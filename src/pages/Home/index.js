@@ -19,7 +19,7 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState();
   const [loginid, setLogInid] = useState(null);
   const [userData, setUserData] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const id = localStorage.getItem("loginid");
@@ -28,13 +28,27 @@ const Home = () => {
       
       // console.log(idAsInt)
       setLogInid(id);
+
+
+      const timeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+  
+      // Clear timeout on component cleanup
+      return () => clearTimeout(timeout);
  
   }, []);
+
+
+
+
+  
   useEffect(() => {
     if (loginid) {
       axios
         .get(`http://localhost:8000/AdminGetInfo/${loginid}`)
         .then((response) => {
+          console.log(response.data.Admin.name)
           // Set the user data in the state
           setUserData(response.data.Admin);
         })
@@ -55,6 +69,11 @@ const Home = () => {
     setActiveTab(tabLabel);
   };
 
+  if (isLoading) {
+    return <>Loadissng...</>;
+  }
+
+
   return (
     <>
     <Navbar/>
@@ -65,7 +84,7 @@ const Home = () => {
           </Col>
           <Col sm={8} lg={5} className="border">
             <h1 className="mt-5">
-              <b> Hello , {userData.name}</b>
+            <b> Hello , {userData ? userData.name : null} </b>
             </h1>
             <p className="text-secondary">
               Welcome to the control Center , where insight meet action
