@@ -13,6 +13,7 @@ import Technicion from "../Technician";
 import Customers from "../Customer";
 import custmer from '../../images/customers.svg'
 import tool from '../../images/tools-icon.svg'
+import { baseurl } from "../const";
 
 const Home = () => {
   const [currentComponent, setCurrentComponent] = useState(null);
@@ -46,7 +47,7 @@ const Home = () => {
   useEffect(() => {
     if (loginid) {
       axios
-        .get(`http://localhost:8000/AdminGetInfo/${loginid}`)
+        .get(`${baseurl}/AdminGetInfo/${loginid}`)
         .then((response) => {
           console.log(response.data.Admin.name)
           // Set the user data in the state

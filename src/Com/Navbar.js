@@ -3,6 +3,7 @@ import proflepic from "../../src/images/Screenshot from 2023-08-28 16-17-14.png"
 import calender from "../../src/images/Group 11787.svg";
 import axios from "axios";
 import './navbar.css'
+import { baseurl } from "../pages/const";
 const Navbar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [loginid, setLogInid] = useState(null);
@@ -21,7 +22,7 @@ const Navbar = () => {
   useEffect(() => {
     if (loginid) {
       axios
-        .get(`http://localhost:8000/AdminGetInfo/${loginid}`)
+        .get(`${baseurl}/AdminGetInfo/${loginid}`)
         .then((response) => {
           // Set the user data in the state
           setUserData(response.data.Admin);

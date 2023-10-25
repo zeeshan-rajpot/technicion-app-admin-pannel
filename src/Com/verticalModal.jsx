@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
+import { baseurl } from "../pages/const";
 
 function MyVerticallyCenteredModal(props) {
   const [userData, setUserData] = useState(null);
@@ -17,7 +18,7 @@ function MyVerticallyCenteredModal(props) {
 
     // Make a DELETE request to log out the user
     axios
-      .get(`http://localhost:8000/AdminLogout/${id}`)
+      .get(`${baseurl}/AdminLogout/${id}`)
  
       .then((response) => {
       

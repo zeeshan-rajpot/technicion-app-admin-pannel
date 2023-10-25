@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import proflepic from "../../images/Screenshot from 2023-08-30 11-33-40.png";
 import axios from 'axios';
+import { baseurl } from '../const';
 const VendorBlock = () => {
 
   const [vendorData, setVendorData] = useState([]);
@@ -11,7 +12,7 @@ const VendorBlock = () => {
     const confirmed = window.confirm("Do you want to unblock this vendor?");
     if (confirmed) {
       axios
-        .post(`http://localhost:8000/changeAccessVendor/${id}`)
+        .post(`${baseurl}/changeAccessVendor/${id}`)
         .then((response) => {
           alert("Vendor unblocked successfully!");
           // Handle success, maybe update the state to reflect the unblocking
@@ -28,7 +29,7 @@ const VendorBlock = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/getAllBlockedVendors")
+      .get(`${baseurl}/getAllBlockedVendors`)
       .then((response) => {
 
         console.log(response.data)

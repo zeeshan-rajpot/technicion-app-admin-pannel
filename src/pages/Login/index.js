@@ -49,7 +49,7 @@ const Login = () => {
         }, 1000);
       })
       .catch((error) => {
-        console.error("Error logging in:", error.response.data.error);
+        console.error("Error logging in:", error);
 
         toast.error(error.response.data.error, {
           position: "top-right",

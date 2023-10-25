@@ -1,50 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Sidebar from "../../Com/Sidebar";
-import "./Account.css";
 import profile from "../../images/Profile.svg";
 import message from "../../images/Message.svg";
 import lock from "../../images/Iconly-Bold-Lock.svg";
-import written from "../../images/Component 605 – 1.svg";
+import Sidebar from "../../Com/Sidebar";
 import Navbar from "../../Com/Navbar";
 import axios from "axios";
+import { baseurl } from "../const";
 
 const Account = () => {
-  // Define state to hold the user id
   const [loginid, setLogInid] = useState(null);
   const [userData, setUserData] = useState(null);
-
+  const [editMode, setEditMode] = useState(false); // Added editMode state
 
   useEffect(() => {
     const id = localStorage.getItem("loginid");
-    console.log(id)
-  
-      
-      // console.log(idAsInt)
+    if (id) {
       setLogInid(id);
- 
+    }
   }, []);
+
   useEffect(() => {
     if (loginid) {
       axios
-        .get(`http://localhost:8000/AdminGetInfo/${loginid}`)
+        .get(`${baseurl}/AdminGetInfo/${loginid}`)
         .then((response) => {
-          // Set the user data in the state
           setUserData(response.data.Admin);
         })
         .catch((error) => console.error("Error fetching user info:", error));
     }
   }, [loginid]);
 
+  const handleSaveChanges = () => {
+    // Send updated data to the server
+    axios
+      .post(`${baseurl}/updateAdmin/${loginid}`, userData)
+      .then((response) => {
+        console.log(userData)
+        console.log('Account updated successfully!', response.data);
+        setEditMode(false); // Disable edit mode after saving changes
+      })
+      .catch((error) => {
+        console.error('Error updating account:', error);
+      });
+  };
+
   return (
     <>
       <Navbar />
       <Container fluid>
         <Row>
+          {/* Sidebar Component */}
           <Col sm={4} lg={2} className="border">
             <Sidebar activeTab="account" />
           </Col>
 
+          {/* Account Information */}
           <Col lg={10}>
             <div className="CenterScreen">
               <Container
@@ -56,83 +67,84 @@ const Account = () => {
                 }}
               >
                 <Row className="p-5">
-                  {/* <Col
-                    lg={4}
-                    className="d-flex align-item-center justify-content-center"
-                    style={{ position: "relative" }}
-                  >
-                    <div
-                      className="ProfileContainer"
-                      style={{ position: "relative" }}
-                    >
-                      <img
-                        src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                        className="Profile"
-                        alt="random person"
-                      />
-                    </div>
-                    <div
-                      className="logo editbtnaccount"
-                      style={{
-                        position: "absolute",
-                        bottom: "-5%",
-                        right: "28%",
-                        transform: "translate(10%, 20%)",
-                      }}
-                    >
-                      <img src={written} alt="edit svg" className="Modalbtn" />
-                    </div>
-                  </Col> */}
-
                   <Col lg={12} className="mt-4 w-75 m-auto">
-                    <Row className="d-flex justify-content-center align-item-center ">
-                      <img src={profile} className="inputLogo" />
-                      <input placeholder="DavidWilliam" className="input" 
-                        value={userData ? userData.name : ""}
-                      />
-                    </Row>
-                    <Row className="d-flex justify-content-center align-item-center mt-3">
-                      <img src={message} className="inputLogo" />
+                    <Row >
+                      <div className="d-flex justify-content-center align-item-center ">
 
+                      <img src={profile} className="inputLogo" style={{width:'20px'}} />
+                      <input
+                        placeholder="DavidWilliam"
+                        className="input border-bottom "
+                        value={userData ? userData.name : ""}
+                        onChange={(e) =>
+                          setUserData({
+                            ...userData,
+                            name: e.target.value,
+                          })
+                        }
+                        readOnly={!editMode} // Disable input if not in edit mode
+                      />
+                      </div>
+                 
+                    </Row>
+                    <Row className=" mt-3">
+                    <div className="d-flex justify-content-center align-item-center ">
+                    <img src={message} className="inputLogo" />
                       <input
                         placeholder="DavidWilliam@gmail.com"
-                        className="input"
+                        className="input border-bottom"
                         value={userData ? userData.email : ""}
+                        onChange={(e) =>
+                          setUserData({
+                            ...userData,
+                            email: e.target.value,
+                          })
+                        }
+                        readOnly={!editMode} // Disable input if not in edit mode
                       />
+                      </div>
                     </Row>
-                    <Row className="d-flex justify-content-center align-item-center mt-3">
-                      <img src={lock} className="inputLogo" />
-
+                    <Row className=" mt-3">
+                    <div className="d-flex justify-content-center align-item-center ">
+                    <img src={lock} className="inputLogo" />
                       <input
                         placeholder="Password"
-                        className="input"
-                        type="Password"
+                        className="input border-bottom"
+                        type="password"
+                        value={userData ? userData.password : ""}
+                        onChange={(e) =>
+                          setUserData({
+                            ...userData,
+                            password: e.target.value,
+                          })
+                        }
+                        readOnly={!editMode} // Disable input if not in edit mode
                       />
+                      </div>
                     </Row>
                     <Row className="d-flex justify-content-center align-item-center mt-3">
-                      <img src={lock} className="inputLogo" />
-                      <input
-                        placeholder="Confirm Password"
-                        className="input"
-                        type="Password"
-                      />
+                      <button
+                        className="Signin-btn mt-3"
+                        onClick={handleSaveChanges}
+                        disabled={!editMode} // Disable button if not in edit mode
+                      >
+                        Save changes
+                      </button>
+                      <button
+                        className="Signin-btn mt-3 ms-2 shadow"
+                        style={{
+                          color: "#ff7782",
+                          background: "white",
+                        }}
+                        onClick={() => setEditMode(!editMode)} // Toggle edit mode
+                      >
+                        {editMode ? "Cancel" : "Edit"}
+                      </button>
                     </Row>
                   </Col>
                 </Row>
               </Container>
             </div>
-            <Row className="text-center">
-              <Col>
-                <button className="Signin-btn mt-3"> Save changes </button>
-                <button
-                  className="Signin-btn mt-3  ms-2 shadow"
-                  style={{ color: "#ff7782", background: "white" }}
-                >
-                  {" "}
-                  Back to Home
-                </button>
-              </Col>
-            </Row>
           </Col>
         </Row>
       </Container>
@@ -141,3 +153,11 @@ const Account = () => {
 };
 
 export default Account;
+
+
+// import profile from "../../images/Profile.svg";
+// import message from "../../images/Message.svg";
+// import lock from "../../images/Iconly-Bold-Lock.svg";
+// <img src={profile} className="inputLogo" />
+//   <img src={message} className="inputLogo" />
+//   <img src={lock} className="inputLogo" />

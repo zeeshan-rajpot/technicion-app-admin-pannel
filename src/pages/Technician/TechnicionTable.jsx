@@ -3,6 +3,7 @@ import axios from "axios";
 
 import proflepic from "../../images/Screenshot from 2023-08-30 11-33-40.png";
 import "./technicion.css";
+import { baseurl } from "../const";
 
 const TechnicionTable = () => {
   const [vendorsData, setVendorsData] = useState([]);
@@ -10,7 +11,7 @@ const TechnicionTable = () => {
   const [refreshKey, setRefreshKey] = useState(0); // Add a key to force component re-render
 
   const changeAccess = (id, newStatus) => {
-    axios.post(`http://localhost:8000/changeAccessVendor/${id}`, { newStatus })
+    axios.post(`${baseurl}/changeAccessVendor/${id}`, { newStatus })
       .then(response => {
         setVendorsData(response.data.vendor);
         setRefreshKey(prevKey => prevKey + 1); // Increment the key to trigger re-render
@@ -19,7 +20,7 @@ const TechnicionTable = () => {
   }
 
   useEffect(() => {
-    axios.get("http://localhost:8000/getAllVendors")
+    axios.get(`${baseurl}/getAllVendors`)
       .then(response => {
         console.log(response.data.vendor);
         setVendorsData(response.data.vendor);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import proflepic from "../../images/Screenshot from 2023-08-30 11-33-40.png";
+import { baseurl } from "../const";
 
 const CousterBlock = () => {
   const [customerData, setCustomerData] = useState([]);
@@ -9,7 +10,7 @@ const CousterBlock = () => {
     const confirmed = window.confirm("Do you want to unblock this user?");
     if (confirmed) {
       axios
-        .post(`http://localhost:8000/changeAccessUser/${id}`)
+        .post(`${baseurl}/changeAccessUser/${id}`)
         .then((response) => {
           alert("User unblocked successfully!");
           // Update the state to remove the unblocked user
@@ -23,7 +24,7 @@ const CousterBlock = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/getAllBlockedUsers")
+      .get(`${baseurl}/getAllBlockedUsers`)
       .then((response) => {
         const blockedUsers = response.data;
         setCustomerData(blockedUsers.User);
