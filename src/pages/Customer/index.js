@@ -55,6 +55,7 @@ const Customers = () => {
             <th scope="col"><b> Sr.</b></th>
             <th scope="col"><b> Name</b></th>
             <th scope="col"><b>Home Address</b></th>
+            <th scope="col"><b> Phone number</b></th>
             <th scope="col"><b> Status</b></th>
           </tr>
         </thead>
@@ -67,7 +68,8 @@ const Customers = () => {
                 <p className="m-0 text-nowrap">{user.firstname + " " +user.lastname}</p>
               </td>
               <td className="text-secondary text-nowrap">{user.city}</td>
-              <td className="text-nowrap">
+              <td className="text-secondary text-nowrap">{user.phonenumber}</td>
+               <td className="text-nowrap">
                 <button
                   href="#"
                   className={`Block-btn ${user.access === 'Denied' ? 'denied-access' : ''}`}

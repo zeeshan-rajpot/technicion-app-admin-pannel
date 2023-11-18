@@ -47,6 +47,7 @@ const TechnicionTable = () => {
             <th scope="col"><b> Sr.</b></th>
             <th scope="col"><b> Name</b></th>
             <th scope="col"><b>Vendor I'D</b></th>
+            <th scope="col"><b> Phone Number</b></th>
             <th scope="col"><b> Status</b></th>
           </tr>
         </thead>
@@ -59,6 +60,7 @@ const TechnicionTable = () => {
                 <p className="m-0 text-nowrap">{vendor.firstname + " " +vendor.lastname}</p>
               </td>
               <td className="text-secondary text-nowrap">{vendor._id}</td>
+              <td className="text-secondary text-nowrap">{vendor.phonenumber}</td>
               <td className="text-nowrap">
                 <button
                   href="#"
